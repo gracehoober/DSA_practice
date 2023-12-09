@@ -14,17 +14,35 @@
  *                    1
  *
  *  9 ---> console: 9
- * base case: if value is less than 10, print it
- * progress:
- * call itself
+ * base case: if num % 10 is less than 10 print it
+ * progress: take 'next' num and call printInReverse on it
  *
  *
  * ideas:
  *  next = num/10 --> move to next iteration
  *  remainder = num % 10 --> print out remainder
  *
+ *
  */
 
 function printInReverse(num){
+  const next = Math.floor(num / 10);
+  const remainder = num % 10;
 
+  console.log(remainder);
+  if(next < 10){
+    console.log(next)
+  }else{
+    printInReverse(next)
+  }
 }
+
+/** 102
+ * next = 1
+ * remainder = 0
+ * printed = 2, 0, 1
+ */
+
+console.log(printInReverse(9))
+console.log(printInReverse(10))
+console.log(printInReverse(102))
