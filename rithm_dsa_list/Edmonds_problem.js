@@ -25,24 +25,24 @@
  *
  */
 
-function printInReverse(num){
-  const next = Math.floor(num / 10);
-  const remainder = num % 10;
+function printInReverse(num) {
+  if (num < 10) {
+    console.log(num);
+  } else {
+    const remainder = num % 10;
+    console.log(remainder);
+    const next = Math.floor(num / 10);
+    printInReverse(next);
 
-  console.log(remainder);
-  if(next < 10){
-    console.log(next)
-  }else{
-    printInReverse(next)
   }
 }
 
-/** 102
+/** 9
  * next = 1
  * remainder = 0
  * printed = 2, 0, 1
  */
 
-console.log(printInReverse(9))
-console.log(printInReverse(10))
-console.log(printInReverse(102))
+printInReverse(12345678);
+// console.log(printInReverse(10))
+// console.log(printInReverse(102))
