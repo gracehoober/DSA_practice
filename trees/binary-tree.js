@@ -1,16 +1,15 @@
 "use strict";
 
-class BinaryTreeNode {
-  constructor(){
-    this.self
-    this.next
+class BinaryTree {
+  constructor(root = null){
+    this.root = root
   }
 }
 
-class BinaryTree {
-  constructor(){
-    this.head
-    this.right
-    this.left
+class BinaryTreeNode {
+  constructor(val, right = null, left = null){
+    this.val = val
+    this.right = right
+    this.left = left
   }
 }
