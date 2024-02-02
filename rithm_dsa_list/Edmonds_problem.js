@@ -25,11 +25,11 @@
  *
  */
 
-function printInReverse(num) {
+function printInReverse(num) {// 12
   if (num < 10) {
     console.log(num);
   } else {
-    const remainder = num % 10;
+    const remainder = num % 10; 2
     console.log(remainder);
     const next = Math.floor(num / 10);
     printInReverse(next);
@@ -46,3 +46,19 @@ function printInReverse(num) {
 printInReverse(12345678);
 // console.log(printInReverse(10))
 // console.log(printInReverse(102))
+
+function reverseNumber(x, power = 1) { //123 //12 //1
+  //base case
+  if(x < 10) return x; //1
+  else{
+      const toAdd = x%10//3 //2
+      const next = Math.floor(x/10);// 12 //1
+
+      //const power = 1 //power need to increment with each function on the stack
+
+      //calls itself and progress
+      return ((10 ** power) * toAdd) + reverse(next, power + 1);
+      //((10^1) * 2) + 1 => 21
+      //((10^2) * 3) + 21 => 321
+  }
+};

@@ -24,15 +24,14 @@ function sumValues(tree){
   let sum = [];
 
   while(queue.length > 0){
-    //put current.val into sum
+
     sum.push(current.val)
-    //put current.children into que
+
     for(let child in current.children){
       queue.push(child)
     }
-    //take current out of q
-    queue.shift(current)
-    //reassign current to next val in q
+
+    queue.shift()
     current = queue[0]
     queue.push(current)
 
