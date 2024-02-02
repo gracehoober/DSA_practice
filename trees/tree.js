@@ -1,12 +1,5 @@
 "use strict";
 
-/** Tree: class for tree */
-class Tree {
-  constructor(root = null){
-    this.root = root
-  }
-}
-
 /** TreeNode: class for a tree node */
 class TreeNode {
   constructor(val, children = []){
@@ -15,11 +8,19 @@ class TreeNode {
   }
 }
 
+/** Tree: class for tree */
+class Tree {
+  constructor(root = null){
+    this.root = root
+  }
 /** sumValues: given a tree whose values are integers, return the sum of the
  * integers.
+ * BFS example:
+ *  queue = first in, first out
  */
-function sumValues(tree){
-  let current = tree.root;
+
+ sumValues(){
+  let current = this.root;
   let queue = [current];
   let sum = [];
 
@@ -38,6 +39,34 @@ function sumValues(tree){
   }
   return sum.reduce(accrue, val => accrue + val, 0)
 }
+
+/** countEvens: given a tree whose values are integers, return a count of the
+ * even values.
+ * DFS example = last in, first out
+ */
+countEvens(){
+  let current = this.root
+  let stack = [current]
+  let countOfEvens = 0;
+
+  while(stack.length > 0){
+    if(current.val % 2 === 0){
+      countOfEvens++;
+    }
+    //put children into stack
+    for(let child of current.children){
+      stack.push(child)
+    }
+    //make current next value current = stack.pop()
+    current = stack.pop()
+  }
+  return countOfEvens
+}
+
+}
+
+
+
 
 
 module.exports = { Tree, TreeNode };
