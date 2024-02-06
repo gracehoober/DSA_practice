@@ -6,6 +6,9 @@ class TreeNode {
     this.val = val;
     this.children = children;
   }
+  sumValues(){
+
+  }
 }
 
 /** Tree: class for tree */
@@ -21,23 +24,22 @@ class Tree {
    */
   sumValues() {
     let current = this.root;
+    //console.log(current, "Current")
     let queue = [current];
-    let sum = [];
+    //console.log(queue, "Queue")
+    let sum = 0;
 
     while (queue.length > 0) {
-
-      sum.push(current.val);
-
+      current = queue.pop();
+      console.log(queue.length, "number in q")
+      sum += current.val;
+      console.log(sum, "sum")
       for (let child in current.children) {
         queue.push(child);
+        console.log(child, "CHILD")
       }
-
-      queue.shift();
-      current = queue[0];
-      queue.push(current);
-
     }
-    return sum.reduce(accrue, val => accrue + val, 0);
+    return sum;
   }
 
   /** countEvens: given a tree whose values are integers, return a count of the
@@ -50,6 +52,9 @@ class Tree {
     let countOfEvens = 0;
 
     while (stack.length > 0) {
+      //make current next value current = stack.pop()
+      current = stack.pop();
+
       if (current.val % 2 === 0) {
         countOfEvens++;
       }
@@ -57,8 +62,6 @@ class Tree {
       for (let child of current.children) {
         stack.push(child);
       }
-      //make current next value current = stack.pop()
-      current = stack.pop();
     }
     return countOfEvens;
   }
@@ -66,12 +69,25 @@ class Tree {
   /** Given a n-ary tree and a number x, find and return the number
    * of nodes which are greater than x.
    */
-  numGreater() {
+  numGreater(num) {
     let numberOfNodeVals = 0;
-    let current = this.root
-    let stack
+    let current = this.root;
+    let stack = [];
 
+    while (stack.length > 0) {
+      current = stack.pop();
+
+      if (current.val > num) {
+        numberOfNodeVals++;
+      }
+      for (let child of current.children) {
+        stack.push(child);
+      }
+
+    }
+    return numberOfNodeVals;
   }
+
 }
 
 
