@@ -9,10 +9,12 @@ class TreeNode {
 
   /** Returns the sum of all the node and it's children */
   sumValues() {
-    let sum = this.val;
-    for (let child of this.children) {
+    let sum = this.val;//1
+    console.log(sum, " sum in node")
+    for (let child of this.children) {//3
       sum += child.val;
     }
+    console.log(sum, " returned sum from node")
     return sum;
   }
 }
@@ -28,22 +30,25 @@ class Tree {
    * BFS example:
    *  queue = first in, first out
    */
-  sumValues() {// 1-2
+  sumValues() { // 1-2
     let sum = 0;
-    let current = this.root;
-    if (current === null) {
+    if (this.root === null) {
       return sum;
     }
-    let queue = [current];
+    let current
+    let queue = [this.root];
 
     while (queue.length > 0) {
       current = queue.pop();
       sum += current.sumValues();
-      sum -= current.val;
+      if(current !== this.root){
+        sum -= current.val
+      }
       for (let child of current.children) {
         queue.push(child);
       }
     }
+    console.log(sum," sum from tree")
     return sum;
     //go through entire tree and add to sum
     //when a node is visited add's sum to the total
