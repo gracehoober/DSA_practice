@@ -6,8 +6,14 @@ class TreeNode {
     this.val = val;
     this.children = children;
   }
-  sumValues(){
 
+  /** Returns the sum of all the node and it's children */
+  sumValues() {
+    let sum = this.val;
+    for (let child of this.children) {
+      sum += child.val;
+    }
+    return sum;
   }
 }
 
@@ -21,31 +27,28 @@ class Tree {
    * integers.
    * BFS example:
    *  queue = first in, first out
-   *
-   *  Question: does not work for an empty tree
    */
   sumValues() {// 1-2
-    let current = this.root;//1
-
-    let queue = [current];//[1]
-
     let sum = 0;
+    let current = this.root;
+    if (current === null) {
+      return sum;
+    }
+    let queue = [current];
 
     while (queue.length > 0) {
-      queue.pop();//[]
-
-      sum += current.val || 0;//sum = 1
-
-      //console.log(current.children, "Children")
-      for (let child of current.children) {//2
-        queue.push(child);//[2]
+      current = queue.pop();
+      sum += current.sumValues();
+      sum -= current.val;
+      for (let child of current.children) {
+        queue.push(child);
       }
-      current = queue[queue.length - 1]
-      //console.log(current, "current after reassignemnt")
-      //console.log(queue, "queue at end of loop")
     }
-    console.log(sum, "sum before return")
     return sum;
+    //go through entire tree and add to sum
+    //when a node is visited add's sum to the total
+    //subtract each node's value from the tolal
+    //return total
   }
 
   /** countEvens: given a tree whose values are integers, return a count of the
