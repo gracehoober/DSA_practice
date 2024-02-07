@@ -21,24 +21,30 @@ class Tree {
    * integers.
    * BFS example:
    *  queue = first in, first out
+   *
+   *  Question: does not work for an empty tree
    */
-  sumValues() {
-    let current = this.root;
-    //console.log(current, "Current")
-    let queue = [current];
-    //console.log(queue, "Queue")
+  sumValues() {// 1-2
+    let current = this.root;//1
+
+    let queue = [current];//[1]
+
     let sum = 0;
 
     while (queue.length > 0) {
-      current = queue.pop();
-      console.log(queue.length, "number in q")
-      sum += current.val;
-      console.log(sum, "sum")
-      for (let child in current.children) {
-        queue.push(child);
-        console.log(child, "CHILD")
+      queue.pop();//[]
+
+      sum += current.val || 0;//sum = 1
+
+      //console.log(current.children, "Children")
+      for (let child of current.children) {//2
+        queue.push(child);//[2]
       }
+      current = queue[queue.length - 1]
+      //console.log(current, "current after reassignemnt")
+      //console.log(queue, "queue at end of loop")
     }
+    console.log(sum, "sum before return")
     return sum;
   }
 
