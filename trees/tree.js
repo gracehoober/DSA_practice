@@ -7,15 +7,32 @@ class TreeNode {
     this.children = children;
   }
 
-  /** Returns the sum of all the node and it's children */
+  /** Returns the sum of all the node and it's children's values integer
+   * sumValues returns an integer
+   */
   sumValues() {
-    let sum = this.val;//1
-    console.log(sum, " sum in node")
-    for (let child of this.children) {//3
+    let sum = this.val;
+
+    for (let child of this.children) {
       sum += child.val;
     }
-    console.log(sum, " returned sum from node")
+
     return sum;
+  }
+
+  /** Returns the number of even node values in the node and it's children
+   * count evens returns an integer
+   */
+  countEvens(){
+    let evens;
+    this.val % 2 === 0 ? evens++ : evens = 0;
+
+    for(let child of this.children){
+      if(child.val % 2 === 0){
+        evens++;
+      }
+    }
+    return evens;
   }
 }
 
@@ -48,12 +65,8 @@ class Tree {
         queue.push(child);
       }
     }
-    console.log(sum," sum from tree")
+
     return sum;
-    //go through entire tree and add to sum
-    //when a node is visited add's sum to the total
-    //subtract each node's value from the tolal
-    //return total
   }
 
   /** countEvens: given a tree whose values are integers, return a count of the
@@ -61,16 +74,21 @@ class Tree {
    * DFS example = last in, first out
    */
   countEvens() {
-    let current = this.root;
-    let stack = [current];
     let countOfEvens = 0;
 
+    if(this.root === null){
+      return countOfEvens;
+    }
+
+    let current
+    let stack = [this.root];
     while (stack.length > 0) {
       //make current next value current = stack.pop()
       current = stack.pop();
+      countOfEvens += current.countEvens();
 
-      if (current.val % 2 === 0) {
-        countOfEvens++;
+      if(current.val !== this.root && current.val % 2 === 0){
+        countOfEvens -= 1;
       }
       //put children into stack
       for (let child of current.children) {
