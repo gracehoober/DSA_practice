@@ -38,12 +38,16 @@ class BTree {
     this.root = root;
   }
 
-/**
- * I: root, pNode and qNode
- * 0: node
- * considerations: node can be an ancestor to itself
- */
-  LCA(root, pNode, rNode){
+  /**
+   * I: root, pNode and qNode
+   * 0: node
+   * considerations: a node has access to its parent
+   * logic:
+   *    start and the p and q -> go up the tree making a list of ancestor nodes for both
+   *    if the same node is in both lists return that node, include the self nodes in the list,
+   *    go until root is hit, if root is hit return rootNode
+   */
+  LCA(root, pNode, rNode) {
 
   }
 }
@@ -56,6 +60,21 @@ class BNode {
     this.left = left;
     this.parent = parent;
   }
+
+  /** returns a list of the node's ancestors in order from closest related
+   * ancestor (parent) to furthest ancestor (root).
+   */
+  nodeAncestors() {
+    let ancestors = [];
+    let current = this;
+
+    while (this.parent !== null) {
+      ancestors.push(current);
+      current = this.parent;
+    }
+
+    return ancestors;
+  }
 }
 
 
@@ -67,3 +86,4 @@ class BNode {
  */
 
 
+module.exports = { BNode, BTree };
