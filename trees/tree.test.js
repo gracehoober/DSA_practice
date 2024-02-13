@@ -1,6 +1,6 @@
 "use strict";
 
-const { Tree, TreeNode } = require("./tree");
+const { Tree, TreeNode } = require("./binary-tree");
 
 let smallTree;
 let largeTree;

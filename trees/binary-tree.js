@@ -1,19 +1,5 @@
 "use strict";
 
-class BinaryTree {
-  constructor(root = null) {
-    this.root = root;
-  }
-}
-
-class BinaryTreeNode {
-  constructor(val, right = null, left = null) {
-    this.val = val;
-    this.right = right;
-    this.left = left;
-  }
-}
-
 /** Question that Megan had in an interview:
  I can clarify: Given two nodes, you need to find their lowest common ancestor
  (basically the ancestor they share that is closest to both of them further
@@ -34,7 +20,7 @@ class BinaryTreeNode {
 */
 
 class BTree {
-  constructor(root) {
+  constructor(root = null) {
     this.root = root;
   }
 
@@ -54,7 +40,7 @@ class BTree {
 
 
 class BNode {
-  constructor(value, right, left, parent) {
+  constructor(value, right = null, left = null, parent = null) {
     this.value = value;
     this.right = right;
     this.left = left;
@@ -65,7 +51,7 @@ class BNode {
    * ancestor (parent) to furthest ancestor (root).
    */
   nodeAncestors() {
-    let ancestors = [];
+    let ancestors = [this];
     let current = this;
 
     while (this.parent !== null) {
