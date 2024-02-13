@@ -1,6 +1,6 @@
 "use strict";
 
-const { BTree, BNode } = require("./tree");
+const { BTree, BNode } = require("./binary-tree");
 
 let largeTree;
 let emptyTree;
@@ -22,34 +22,38 @@ beforeEach(function () {
          93 11  8
 
  */
-  let n4;
-  let n31;
-  let n2;
-  let n5;
-  let n3;
-  let n1;
-  let n71;
-  let n72;
-  let n91;
-  let n6;
-  let n93;
-  let n11;
-  let n8;
 
-  n4 = new BNode(4, n2, n31, null);
-  n31 = new BNode(31, n1, n71, n4);
-  n2 = new BNode(2, n5, n3, n4);
-  n5 = new BNode(5, 72, null, n2);
-  n3 = new BNode(3, n91, n6, n2);
-  n1 = new BNode(1, null, null, n31);
-  n71 = new BNode(71, null, null, n31);
-  n72 = new BNode(72, n93, n11, n5);
-  n91 = new BNode(91, null, null, n3);
-  n6 = new BNode(6, n8, null, n8);
-  n93 = new BNode(93, null, null, n72);
-  n11 = new BNode(11, null, null, n72);
-  n8 = new BNode(8, null, null, n6);
+  //Create the nodes and their children
+  let n8 = new BNode(8, null, null);
+  let n11 = new BNode(11, null, null);
+  let n93 = new BNode(93, null, null);
+  let n6 = new BNode(6, null, n8);
+  let n91 = new BNode(91, null, null);
+  let n72 = new BNode(72, n11, n93);//n5
+  let n71 = new BNode(71, null, null);//n31
+  let n1 = new BNode(1, null, null);//n31
+  let n3 = new BNode(3, n6, n91);//n2
+  let n5 = new BNode(5, n72, null);//n2
+  let n31 = new BNode(31, n71, n1);//n4
+  let n2 = new BNode(2, n3, n5);//n4
+  let n4 = new BNode(4, n31, n2, null);
 
+  //Add each node's parent
+  n8.parent = n6;
+  n11.parent = n72;
+  n93.parent = n72;
+  n6.parent = n3;
+  n91.parent = n3;
+  n72.parent = n5;
+  n71.parent = n31;
+  n1.parent = n31;
+  n3.parent = n2;
+  n5.parent = n2;
+  n31.parent = n4;
+  n2.parent = n4;
+  n4.parent = null;
+
+  //Create the tree
   largeTree = new BTree(n4);
 
 });
