@@ -33,9 +33,9 @@ class BTree {
    *    if the same node is in both lists return that node, include the self nodes in the list,
    *    go until root is hit, if root is hit return rootNode
    */
-  // LCA(root, pNode, rNode) {
+  LCA(root, pNode, rNode) {
 
-  // }
+  }
 }
 
 
