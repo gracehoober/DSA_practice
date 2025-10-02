@@ -25,45 +25,83 @@
 # -1000 <= lists[i][j] <= 1000
 
 # Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+from typing import List, Optional
+
+# Iterative solution
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
 
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        index_to_heads = self.heads(lists)
+        """Merges k sorted linked lists and returns it as one sorted linked list."""
+
+        if not lists:
+            return None
+
+        index_to_heads = self.index_to_heads(lists)
         result = []
+        loop = True
 
-        i, lowest = self.find_lowest_node(index_to_heads)
+        while loop:
+            i, lowest = self.find_lowest_node(index_to_heads)
 
-        result.push(lowest)
-        index_to_heads[i] = lowest.next
+            result.append(lowest.val)
+            index_to_heads[i] = lowest.next
+            loop = self.continue_loop(index_to_heads)
 
+        return result
 
-# compare the keys/head values in heads counter
-# find the largest and put into new list
-# make the head.next the new head
-
-#how to handle the case where the linkedList val is None
-
-    def index_to_heads(listsList[Optional[ListNode]])-> dict:
+    def index_to_heads(self, lists: Optional[ListNode]) -> dict:
         """Returns a dict whose keys represent the index of the
         linkedlist in the lists array and whose values represent
         the current node of the linkedList.
         """
-        # {0:head, 1:head, 2:head}
+
+        if not lists:
+            return {}
+
         heads = {}
-        for i,head in enumerate(lists):
-            heads[i]=head
+        for i, head in enumerate(lists):
+            heads[i] = head
         return heads
 
-    def find_lowest_node(index_to_heads: dict):
-        i = 0
-        lowest = index_to_heads
+    def find_lowest_node(self, index_to_heads: dict):
+        """Returns the index and node of the lowest node in the
+        index_to_heads dict.
+        """
+
+        index_of_lowest = None
+        lowest = None
         for index in index_to_heads:
             node = index_to_heads[index]
-            if node.val < lowest:
+            if node is None:
+                continue
+
+            if lowest is None or (index is not None and node.val < lowest.val):
                 lowest = node
-                i = index
-        
+                index_of_lowest = index
+        return index_of_lowest, lowest
+
+    def continue_loop(self, index_to_heads: dict) -> bool:
+        """Returns True if a value in the index_to_heads dict is not None."""
+
+        for index in index_to_heads:
+            if index_to_heads[index] is not None:
+                return True
+        return False
+
+
+# Test cases
+list1 = ListNode(1, ListNode(4, ListNode(5)))
+list2 = ListNode(1, ListNode(3, ListNode(4)))
+list3 = ListNode(2, ListNode(6))
+lists = [list1, list2, list3]
+solution = Solution()
+merged_list = solution.mergeKLists(lists)
+print(merged_list)  # Expected output: [1,1,2,3,4,4,5,6]
+
+
+# MergeSort Solution
