@@ -7,7 +7,7 @@
 # My clarifications/ process:
 #   Can there be multiple matches in an event?
 #   What if there is a tie?
-#   I drew out a diagram of the database... MORE HERE
+#   I drew out a diagram of the database...
 
 
 # The classes listed below are respresentations of a database model. They are in
@@ -52,7 +52,9 @@ class Team:
     def highest_ranking_team(cls, teams):
         """Returns highest ranking team"""
         highest = None
-        # TODO:MORE CODE HERE
+        for team in teams:
+            if highest is None or (team.rank is not None and team.rank < highest.rank):
+                highest = team
         return highest
 
 
