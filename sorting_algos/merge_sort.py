@@ -28,13 +28,15 @@
 from typing import List, Optional
 
 # Iterative solution
+
+
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
 
-class Solution:
+class IterativeSolution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         """Merges k sorted linked lists and returns it as one sorted linked list."""
 
@@ -95,13 +97,62 @@ class Solution:
 
 
 # Test cases
-list1 = ListNode(1, ListNode(4, ListNode(5)))
-list2 = ListNode(1, ListNode(3, ListNode(4)))
-list3 = ListNode(2, ListNode(6))
-lists = [list1, list2, list3]
-solution = Solution()
-merged_list = solution.mergeKLists(lists)
-print(merged_list)  # Expected output: [1,1,2,3,4,4,5,6]
+# list1 = ListNode(1, ListNode(4, ListNode(5)))
+# list2 = ListNode(1, ListNode(3, ListNode(4)))
+# list3 = ListNode(2, ListNode(6))
+# lists = [list1, list2, list3]
+# solution = IterativeSolution()
+# merged_list = solution.mergeKLists(lists)
+# print(merged_list)  # Expected output: [1,1,2,3,4,4,5,6]
 
 
 # MergeSort Solution
+class MergeSortSolution:
+    def mergeK_k_lists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        """Merges k sorted linked lists and returns it as one sorted linked list."""
+        pass
+
+    def divide_list(self, list: List[Optional[ListNode]]) -> List[ListNode]:
+        """Divides the list into halves until each half has one element."""
+
+        if not list:
+            return None
+
+        if len(list) == 1:
+            return list
+
+        mid = len(list) // 2
+        left = self.divide_list(list[:mid])
+        right = self.divide_list(list[mid:])
+        return self.merge_sort(left, right)
+
+    def merge_sort(self, listA: list, listB: list) -> List[ListNode]:
+        """Merges two sorted linked lists and returns it as one sorted linked list."""
+
+        if not listA:
+            return listB
+        if not listB:
+            return listA
+
+        sorted = []
+        a, b = 0, 0
+        while a < len(listA) and b < len(listB):
+            if listA[a].val < listB[b].val:
+                sorted.append(listA[a])
+                a += 1
+            else:
+                sorted.append(listB[b])
+                b += 1
+
+        sorted.extend(listA[a:])
+        sorted.extend(listB[b:])
+
+        return sorted
+
+
+# Test cases
+nodeA, nodeB, nodeC = ListNode(1), ListNode(4), ListNode(5)
+list_1 = [nodeA, nodeB, nodeC]
+s = MergeSortSolution()
+result = s.merge_sort(list_1)
+print(result)  # Expected output: [1,3,4]
