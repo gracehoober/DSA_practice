@@ -110,10 +110,17 @@ class IterativeSolution:
 class MergeSortSolution:
     def mergeK_k_lists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         """Merges k sorted linked lists and returns it as one sorted linked list."""
-        pass
+        # TODO: Not finished yet
 
-    def divide_list(self, list: List[Optional[ListNode]]) -> List[ListNode]:
-        """Divides the list into halves until each half has one element."""
+        if not lists:
+            return None
+
+        return self.handle_merge_sort(lists)
+
+    def handle_merge_sort(self, list: List[Optional[ListNode]]) -> List[ListNode]:
+        """Helper function that recursively splits the list into halves
+        and returns the sorted list.
+        """
 
         if not list:
             return None
@@ -122,8 +129,8 @@ class MergeSortSolution:
             return list
 
         mid = len(list) // 2
-        left = self.divide_list(list[:mid])
-        right = self.divide_list(list[mid:])
+        left = self.handle_merge_sort(list[:mid])
+        right = self.handle_merge_sort(list[mid:])
         return self.merge_sort(left, right)
 
     def merge_sort(self, listA: list, listB: list) -> List[ListNode]:
@@ -151,8 +158,11 @@ class MergeSortSolution:
 
 
 # Test cases
-nodeA, nodeB, nodeC = ListNode(1), ListNode(4), ListNode(5)
+nodeA, nodeB, nodeC, nodeD, nodeE = ListNode(
+    1), ListNode(4), ListNode(5), ListNode(1), ListNode(3)
+
 list_1 = [nodeA, nodeB, nodeC]
+list_2 = [nodeD, nodeE]  # Expected output:
 s = MergeSortSolution()
-result = s.merge_sort(list_1)
-print(result)  # Expected output: [1,3,4]
+result = s.merge_sort(list_1, list_2)
+print(result)  # Expected output: [1,1,3,4,5]
