@@ -119,22 +119,28 @@ class MergeSortSolution:
         dummy = ListNode(0)
         current = dummy
 
-        while (lists):
-            smallest_node = None
-            i_of_smallest = None
-            for i, node in enumerate(lists):
-                if node is not None:
-                    if smallest_node is None or node.val < smallest_node.val:
-                        smallest_node = node
-                        i_of_smallest = i
+        while lists:
+            # refactored solution:
+            smallest_index = 0
+            for i in range(1, len(lists)):
+                if lists[i].val < lists[smallest_index].val:
+                    smallest_index = i
+            
+            # first solution:
+            # smallest_node = None
+            # i_of_smallest = None
+            # for i, node in enumerate(lists):
+            #     if node is not None:
+            #         if smallest_node is None or node.val < smallest_node.val:
+            #             smallest_node = node
+            #             i_of_smallest = i
 
-            if smallest_node.next is None:
-                lists.pop(i_of_smallest)
-            else:
-                lists[i_of_smallest] = smallest_node.next
-
-            current.next = smallest_node
+            current.next = lists[smallest_index]
             current = current.next
+
+            lists[smallest_index] = lists[smallest_index].next
+            if lists[smallest_index] is None:
+                lists.pop(smallest_index)
 
         return dummy.next
 
