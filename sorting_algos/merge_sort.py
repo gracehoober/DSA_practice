@@ -108,14 +108,33 @@ class IterativeSolution:
 
 # MergeSort Solution
 class MergeSortSolution:
-    def mergeK_k_lists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+    def merge_k_lists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         """Merges k sorted linked lists and returns it as one sorted linked list."""
-        # TODO: Not finished yet
 
         if not lists:
             return None
 
-        return self.handle_merge_sort(lists)
+        sorted = []
+        sort_list = True
+        while (sort_list):
+            smallest_node = None
+            index_of_smallest = None
+            for node in lists:
+                if node is not None:
+                    if smallest_node is None or node.val < smallest_node.val:
+                        smallest_node = node
+                        index_of_smallest = lists.index(node)
+
+            lists[index_of_smallest] = smallest_node.next
+            sorted.append(smallest_node)
+
+            for node in lists:
+                if node is not None:
+                    sort_list = True
+                    break
+                sort_list = False
+
+        return sorted
 
     def handle_merge_sort(self, list: List[Optional[ListNode]]) -> List[ListNode]:
         """Helper function that recursively splits the list into halves
@@ -158,11 +177,21 @@ class MergeSortSolution:
 
 
 # Test cases
-nodeA, nodeB, nodeC, nodeD, nodeE = ListNode(
-    1), ListNode(4), ListNode(5), ListNode(1), ListNode(3)
+# nodeA, nodeB, nodeC, nodeD, nodeE = ListNode(
+#     1), ListNode(4), ListNode(5), ListNode(1), ListNode(3)
 
-list_1 = [nodeA, nodeB, nodeC]
-list_2 = [nodeD, nodeE]  # Expected output:
-s = MergeSortSolution()
-result = s.merge_sort(list_1, list_2)
-print(result)  # Expected output: [1,1,3,4,5]
+# list_1 = [nodeA, nodeB, nodeC]
+# list_2 = [nodeD, nodeE]  # Expected output:
+# s = MergeSortSolution()
+# result = s.merge_sort(list_1, list_2)
+# print(result)  # Expected output: [1,1,3,4,5]
+
+# Test merge_k_lists
+list1 = ListNode(1, ListNode(4, ListNode(5)))
+list2 = ListNode(1, ListNode(3, ListNode(4)))
+list3 = ListNode(2, ListNode(6))
+lists = [list1, list2, list3]
+solution = MergeSortSolution()
+merged_list = solution.merge_k_lists(lists)
+for node in merged_list:
+    print(node.val, end=", ")  # Expected output: 1,1,2,3,4,4,5,6
