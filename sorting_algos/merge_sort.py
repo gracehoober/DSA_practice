@@ -118,14 +118,13 @@ class MergeSortSolution:
         sort_list = True
         while (sort_list):
             smallest_node = None
-            index_of_smallest = None
-            for node in lists:
+            i_of_smallest = None
+            for i, node in enumerate(lists):
                 if node is not None:
                     if smallest_node is None or node.val < smallest_node.val:
                         smallest_node = node
-                        index_of_smallest = lists.index(node)
-
-            lists[index_of_smallest] = smallest_node.next
+                        i_of_smallest = i
+            lists[i_of_smallest] = smallest_node.next
             sorted.append(smallest_node)
 
             for node in lists:
@@ -134,7 +133,7 @@ class MergeSortSolution:
                     break
                 sort_list = False
 
-        return sorted
+        return sorted[0]
 
     def handle_merge_sort(self, list: List[Optional[ListNode]]) -> List[ListNode]:
         """Helper function that recursively splits the list into halves
