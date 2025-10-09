@@ -41,7 +41,29 @@ from typing import List
 class KthLargest:
 
     def __init__(self, k: int, nums: List[int]):
-        pass
+        """Int: is the index of the value to return
+        Stream: a heap where the smallest valuse is at stream[0] and
+        largest value is at stream[-1].
+        Assumption: the given stream is already an sorted list in ascending order.
+        """
+        self.int = k
+        self.stream = nums
 
     def add(self, val: int) -> int:
-        pass
+        self.stream.push(val)
+        if self.stream[0] > self.stream[len(self.stream) - 1]:
+            self.organize_heap(len(self.stream) - 1)
+
+        return self.stream[-3]
+
+    def organize_heap(self, i):
+        if i <= 0:
+            return None
+
+        self.stream[0], self.stream[i] = self.stream[i], self.stream[0]
+
+        parent = i // 2
+        if self.stream[i] < self.stream[parent]:
+            self.organize_heap(parent)
+
+        return None
