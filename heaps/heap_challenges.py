@@ -67,3 +67,68 @@ class KthLargest:
             self.organize_heap(parent)
 
         return None
+
+
+"""Last Stone Weight
+You are given an array of integers stones where stones[i] represents the weight of the ith stone.
+
+We want to run a simulation on the stones as follows:
+
+At each step we choose the two heaviest stones, with weight x and y and smash them togethers
+If x == y, both stones are destroyed
+If x < y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
+Continue the simulation until there is no more than one stone remaining.
+
+Return the weight of the last remaining stone or return 0 if none remain.
+
+Example 1:
+
+Input: stones = [2,3,6,2,4]
+
+Output: 1
+Explanation:
+We smash 6 and 4 and are left with a 2, so the array becomes [2,3,2,2].
+We smash 3 and 2 and are left with a 1, so the array becomes [1,2,2].
+We smash 2 and 2, so the array becomes [1].
+
+Example 2:
+
+Input: stones = [1,2]
+
+Output: 1
+Constraints:
+
+1 <= stones.length <= 20
+1 <= stones[i] <= 100"""
+
+"""
+
+K Closest Points to Origin
+You are given an 2-D array points where points[i] = [xi, yi] represents the coordinates of a point on an X-Y axis plane. You are also given an integer k.
+
+Return the k closest points to the origin (0, 0).
+
+The distance between two points is defined as the Euclidean distance (sqrt((x1 - x2)^2 + (y1 - y2)^2)).
+
+You may return the answer in any order.
+
+Example 1:
+
+
+
+Input: points = [[0,2],[2,2]], k = 1
+
+Output: [[0,2]]
+Explanation : The distance between (0, 2) and the origin (0, 0) is 2. The distance between (2, 2) and the origin is sqrt(2^2 + 2^2) = 2.82842. So the closest point to the origin is (0, 2).
+
+Example 2:
+
+Input: points = [[0,2],[2,0],[2,2]], k = 2
+
+Output: [[0,2],[2,0]]
+Explanation: The output [2,0],[0,2] would also be accepted.
+
+Constraints:
+
+1 <= k <= points.length <= 1000
+-100 <= points[i][0], points[i][1] <= 100"""
