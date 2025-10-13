@@ -101,8 +101,67 @@ Constraints:
 1 <= stones.length <= 20
 1 <= stones[i] <= 100"""
 
-"""
 
+class LastStoneWeight:
+    def __init__(self, stones):
+        self.stones = stones
+
+    def play(self):
+        """Initiates the play of last stone weight and returns the larget
+        remaining stone.
+        """
+
+        if not self.stones:
+            return 0
+
+        while (len(self.stones) > 1):
+            self.smash()
+
+        return self.stones[0] if self.stones else 0
+
+    def two_heaviest(self):
+        """Returns the indicies of the two largest stones in self.stones."""
+
+        if len(self.stones) < 2:
+            return None, None
+
+        stoneA = 0
+        stoneB = 1
+        for i, stone in enumerate(self.stones):
+            if stone > self.stones[stoneA]:
+                stoneB = stoneA
+                stoneA = i
+            elif stone > self.stones[stoneB]:
+                stoneB = i
+
+        return stoneA, stoneB
+
+    def smash(self):
+        """Mutates the self.stones array in place by removing the smallest
+        of two stones and reducing the largest of two stones by the value of
+        the smallest.
+        """
+
+        stoneA, stoneB = self.two_heaviest()
+
+        if self.stones[stoneA] == self.stones[stoneB]:
+            self.stones.pop(stoneB)
+            self.stones.pop(stoneA)
+        elif self.stones[stoneA] < self.stones[stoneB]:
+            self.stones[stoneB] = self.stones[stoneB] - self.stones[stoneA]
+            self.stones.pop(stoneA)
+        else:
+            self.stones[stoneA] = self.stones[stoneA] - self.stones[stoneB]
+            self.stones.pop(stoneB)
+
+
+# Testing:
+stones = [2, 3, 6, 2, 4]
+last_stone_weight = LastStoneWeight(stones=stones)
+stone = last_stone_weight.play()
+print(stone)
+
+"""
 K Closest Points to Origin
 You are given an 2-D array points where points[i] = [xi, yi] represents the coordinates of a point on an X-Y axis plane. You are also given an integer k.
 
