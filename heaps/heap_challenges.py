@@ -161,6 +161,32 @@ last_stone_weight = LastStoneWeight(stones=stones)
 stone = last_stone_weight.play()
 print(stone)
 
+
+class MaxHeapLastStoneWeight:
+    def last_stone_weight(self, stones):
+        max_heap = self.create_heap(stones)
+
+    def create_heap_from_stones(self, stones):
+        """Creates a binary max heap and returns an array representation of
+        this heap."""
+
+        heap = []
+        for stone in stones:
+            heap.push(stone)
+            heap=self.max_heap(heap)
+        return heap
+
+    def max_heap(heap):
+        if heap[-1] > heap[0]:
+            heap[-1], heap[0] = heap[0], heap[-1]
+
+                i = len(heap) - 1 // 2
+                while i < 0:
+                    if heap[i] < heap[-1]:
+                        heap[i], heap[-1] = heap[-1], heap[i]
+
+
+
 """
 K Closest Points to Origin
 You are given an 2-D array points where points[i] = [xi, yi] represents the coordinates of a point on an X-Y axis plane. You are also given an integer k.
