@@ -163,28 +163,35 @@ print(stone)
 
 
 class MaxHeapLastStoneWeight:
-    def last_stone_weight(self, stones):
-        max_heap = self.create_heap(stones)
+    def __init__(self, stones):
+        self.stones = stones
 
-    def create_heap_from_stones(self, stones):
+    def last_stone_weight(self):
+        max_heap = self.create_heap(self.stones)
+        greatest, next_greatest = self.index_of_2_greatest(max_heap)
+        if max_heap[greatest] == max_heap[next_greatest]:
+            max_heap.pop(next_greatest)
+            max_heap.pop(greatest)
+
+    def create_heap_from_stones(self):
         """Creates a binary max heap and returns an array representation of
         this heap."""
 
         heap = []
-        for stone in stones:
-            heap.push(stone)
-            heap=self.max_heap(heap)
+        for stone in self.stones:
+            heap = self.add_val_to_heap(stone, heap)
         return heap
 
-    def max_heap(heap):
-        if heap[-1] > heap[0]:
-            heap[-1], heap[0] = heap[0], heap[-1]
+    def add_val_to_heap(self, val, heap):
+        pass
 
-                i = len(heap) - 1 // 2
-                while i < 0:
-                    if heap[i] < heap[-1]:
-                        heap[i], heap[-1] = heap[-1], heap[i]
-
+    def max_heap(self, heap):
+        i = len(self.stones) - 1 // 2
+        while i < 0:
+            if heap[i] < heap[-1]:
+                heap[i], heap[-1] = heap[-1], heap[i]
+                i = i//2
+                self.max_heap
 
 
 """
